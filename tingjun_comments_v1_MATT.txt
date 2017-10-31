@@ -1,0 +1,60 @@
+What do BHF and THB stand for?
+
+---MATT---> They were defined in the intro paragraph for the reconstruction section. I just haven't copied that bit into my document for editing :)
+
+==============================================================
+
+L5: Is it easy to write out the filter function directly? 
+
+---MATT---> I tried but couldn't get it very succinct. Here's what I have, maybe you can suggest how to make it nicer.
+
+"""
+Path $A$ begins by filtering the waveform in the time domain (-3~dB cutoff frequency of 53~kHz) according to the function
+\begin{align}
+y[n]=\left(1-e^{-1/6}\right) x[n] + e^{-1/6} y[n-1]
+\end{align}
+where for tick $n$, $y$ is the output waveform, and $x$ is the input waveform. The filter is applied to each waveform twice, both forwards and backwards, to preserve the peak timing of the pulses.
+"""
+
+Unless there's a strong reason to include it, I'm comfortable leaving the function out.
+
+==============================================================
+
+L13: Should it be exp[(Ai-sigma)/sigma]? 
+
+---MATT---> Yes, you're right. I've changed it.
+
+==============================================================
+
+L29: You may want to mention multiple coulomb scattering as another source for the track curvatures. 
+
+---MATT---> Done.
+
+==============================================================
+
+L53: Change references to [3,4,5,6,7]
+
+---MATT---> Done.
+
+==============================================================
+
+L58: What do you mean by THB 1 here?
+
+---MATT---> It links to the description of the algorithm. I've made it more clear.
+
+==============================================================
+
+L68: You did not mention simulation/MCTruth distributions in the plots. Also did you describe how the MC was generated? Why there is a non-zero tail between 0 and 2 for MCTruth in plot (a)?
+I see they are discussed later. You may still mention they will be discussed later here. 
+
+---MATT---> I've referenced the later section for sim/MCT. Don't know about the MCtruth from 0 to 2. I suppose it could be un-merged IDEs from the same channel. My script is supposed to merge all IDEs for every channel, but I could be failing somehow.
+
+==============================================================
+
+Fig 2: Did you get the lifetime values from Alan? Are those corrected lifetimes? How did you get the systematic error of 0.5 ms?
+
+Did you talk to Alan to see if he is comfortable with the 4.25 ms lifetime you derived?
+
+---MATT---> Yes, I got the PrM2 plot from Alan. I don't know what "corrected lifetimes" means, we'd have to ask him. He told me that he "thinks" the systematic error could be 0.5 ms for PrM2, but he's still working on it.
+
+No, I haven't brought up my measurement with him yet. I want to be reasonably confident in the analysis before going and trying to make comparisons.

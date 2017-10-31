@@ -1,0 +1,170 @@
+------------------------------------------------
+
+Figure 1: the data distribution is still wider than the simulation.
+The fact that there is a mismatch between data and MC means 
+that the correction to the lifetime derived from simulation has a systematic
+uncertainty.  Is the arbitrary uncertainty that we are using large
+enough to account for this?  I would certainly add a statement somewhere 
+that the observed discrepancy requries a systematic uncertainty.
+
+------------------------------------------------
+
+Lines 7-8
+"Following this, unipolar pulses are found when the amplitude
+of the filtered waveform raises above twice the measured noise RMS value."
+
+How is the noise RMS value measured?  Once per run (pedestal) or once per event?
+Does the (Or can the) signal contribute in any way to the RMS value?
+
+---MATT---> I've added an explanation for this. The signal should not affect the RMS the way I have done it.
+
+------------------------------------------------
+
+lines 8-10
+"The start and end
+points of the pulse are xed at -50 and +100 ticks, respectively, in relation to the tick at which
+the pulse is triggered."
+
+Different track angles (or different delta-counter tracks) will have different pulse widths in theory,
+yet you use the same width for all track angles.  It might be worth a sentence here to remind your reader
+that the difference in pulse width for EW tracks that do not cross the wire planes is small, or that the 
+largest pulse with for the EW tracks that do not cross the wire planes is smaller than this window?
+
+---MATT---> I had a statement about this in my previous version, don't know why it didn't make it into this one. I've added a sentence about this.
+
+------------------------------------------------
+
+"The THB algorithm was developed to purify the hits collection output of the BHF."
+
+Was THB defined somewhere before this?  The sentence as written implies that it was already defined.
+
+---MATT---> Yes, it was defined before. I copied and pasted only my bits from the paper while I was editing it. It'll go back under the paragraph which defines these.
+
+------------------------------------------------
+
+"The track angles with respect to the anode plane
+are also estimated by using the 3D line which connects the triggered muon counters."
+
+Change to "which connects the centers of the triggered muon counters."
+
+---MATT---> Done.
+
+------------------------------------------------
+
+"For example, a reduction of 20% in charge collected, versus total charge liberated in an
+interaction, for a drift of 2 m and electric eld of 500 V/cm is expected for an electron lifetime of
+20 ms [8]."
+
+I get 94% not 80% of the total collectable charge arrives at the wire planes, for a 20 ms lifetime, 
+a 2 m drift, and a drift velocity of 1.6 m/ms, using equation 1. Please check.
+
+---MATT---> Mark made the same comment :) Sorry, that was my mistake, it should say 5m drift. And even so, it's 15% not 20%. Anyway, I've fixed it.
+
+------------------------------------------------
+
+Looking at figure 2, using data from the 2 thin pink bands seems absurd - there is no reason for the reader to 
+consider the possibility that the data available for each one is not proportional to the width (the 
+elapsed time).  Please add a sentence that explains what fraction of the tracks in your final sample comes 
+from each band (and thus why it's worth combining data from different time periods and running conditions.)
+
+---MATT---> Yeah, to be honest, what I did was run over the full data set, from nearly the beginning all the way up until the pipe break. The runs which don't have appropriate triggers (e.g. PD or telescope), and those which had high noise failed the splitting/reco automatically. Also, known bad runs, e.g. when DAQ parameters were varying wildly, were omitted. What's in the red bands is all that's left. All of the analysable data.
+Fractions of full dataset in each band: 86.7%, 9.5%, 3.8%.
+
+Anyway, I've re-analysed the data without the later runs and updated the information in the text. New lifetime = 4242us, lower than before.
+
+------------------------------------------------
+
+"For this data set, the decay of hit dQ=dx in the TPC is shown in gure 3, yielding an
+observed electron lifetime of 4.53  0.10 (stat.) ms (systematic uncertainties and corrections to
+this measurement are made in section 2.2). Here, a fiducial cut of 50% of the full drift time is
+imposed to reduce bias due to incorrectly determined MPV for longer drift hits (explanation in
+section 2.1.4). Possible causes of bias in this measurement and explanation of the systematic
+uncertainties are described below."  lines 81-86, and figure 3.
+
+Did you include the first point (smallest drift time) in your fit?  If yes, why does the fit not 
+extend that far in the plot?  If no, then make your sentence about the 50% fiducial volume cut accurate.
+Maybe 5-50% or 0.05m to 1.00m in drift distance?  And of course explain why you discarded that point.
+
+---MATT---> Oh yeah. I didn't include the first point so you're right, I didn't say the correct thing. I've added an explanation.
+
+------------------------------------------------
+
+Figure 4 - specify the MCscale parameter value in the caption for clarity.
+
+---MATT---> As below, I've added a comment saying these results are for all MCscale parameters, combined.
+
+------------------------------------------------
+
+Figure 5 - I assume that these are for a specific drift distance?  State which one in the text and 
+put it on the plot as well. 
+
+---MATT---> Actually no. It is for all drift distances. Should it be for a particular drift distance? Same question for figure 4 and MCscale.
+
+------------------------------------------------
+
+Figure 6 - what is the kink in the red curve?  You have to comment on that in the text.
+
+---MATT---> I have no idea. I think it's right around the landau MPV would be if I were to plot the full Q distribution (rather than dQ/dx), but I don't know what would make the efficiency flatten out there. The other graphs have the same thing, but it's much less pronounced because the efficiency is higher at the MPV.
+
+It only showed up when I "fixed" the efficiencies in the past month. Wasn't there before, though not sure if I would've seen it given how bad the calculations used to be...
+
+I'll try to think of some explanation, but in the mean time, if you have suggestions I'm all ears!
+
+------------------------------------------------
+
+Figure 7 - love it.
+
+------------------------------------------------
+
+Figure 8 - Can you add a second figure that shows the distribution of Q_MC for the sample?  The existing 
+figure is missing this important information if one wants to understand what kind of hit charge resolution
+we have for the purity analysis.
+
+---MATT---> Yes, I have the figure. I'll add it. 
+
+Tom didn't like the plot of chi^2/ndf so I guess I'll replace it with the Q_MC distribution.
+
+------------------------------------------------
+
+Figure 8 - The scatter in the points at 
+large Q_MC does not agree with the size of the error bars, leading me to conclude that the error bars
+are too small.  Fix them.
+
+---MATT---> Yeah, I thought that too, but I don't know how to calculate the error. I would very much like to discuss this.
+
+------------------------------------------------
+
+Figure 8 - how can the charge resolution be greater than 100%?  That implies that you have negative values for Qreco.  Explain please.
+
+------------------------------------------------
+
+Figure 10, lines 182-192 - Interesting, this is new. You attribute the entire discrepancy to the MCscale factor, while space charge and transverse diffusion contribute.  We should talk about this more.  I need some time to digest the new addition.
+
+---MATT---> Oh, I didn't know that. Yes, let's discuss.
+
+------------------------------------------------
+
+QUESTION:  Why did the true lifetime change from what it was before (3.5 ms?) to 4.25 ms.  What specific 
+thing made the difference?  I am not comfortable with the small uncertainty on the final result.
+
+---MATT---> I don't know what specifically made it change. I think the biggest factor was what we worked on to fix the landau(x)gauss fits last month.
+
+------------------------------------------------
+
+STATEMENT: We are in a much different situation now that the correction is small, the other systematic
+considerations are no longer negligible.
+
+I think that you need to do a space charge correction now as well, and a second systematic uncertainty.
+In other words, quote tau = 4.13+/-0.24(stat)+/0.28(syst)+/-0.12(syst)
+But I am not sure that this is the right end result given the previous discussion.
+
+---MATT---> I agree that the situation is different, but I am not very confident in my quoted errors (stat or syst), especially based on some of the comments you and Mark have made. I am certainly underestimating the statistical uncertainty because the chi2/ndf on the data lifetime is huge (6.8). I am moderately happy with the "debiasing" process and the errors (actually more like "confidence interval") on the prediction. And I do agree that the other systematics are not negligible. I think it would be good to discuss more.
+
+------------------------------------------------
+
+We also need to check the size of the transverse diffusion correction, it may need to be called out 
+separately. 
+
+
+
+ 

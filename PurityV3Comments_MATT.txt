@@ -1,0 +1,316 @@
+General comment:  With regards to how you chose a value for the MC scale paramter.  I believe that 
+figure 9 for a fixed value of the simulated lifetime correct.  I assume that you would get a different 
+answer for the MCscale factor if you used a different simulated lifetime?  I think is a weakness of 
+choice of MC scale, but I don't think that it matters very much because of figure 10.  A second 
+weakness is a possible uncorrected time offset in the trigger times that would result in a 
+shift in dQ/dx_0 for data but not for MC.
+I would actually really like to see figure 1 for both MCscale of 1.0 and 1.2.  Does 1.2 gives better
+data/MC agreement?  Can you do a cross check for me?  Can you run a quick simulation with infinite
+lifetime and low/no noise, and compare dQ/dx with the value you expect from 1.7 MeV/cm.  Turn diffusion off if you 
+want to, it's about a 2-3% effect.  That should tell you what the MCscale should be IF the problem 
+is the signal simulation being too small.
+
+I see two options for improving the paper, but I think that the choice depends on the answers to the 
+above questions. 
+
+One option:  Use MCscale=1.0, which means don't use it all.  Remake all plots and recalculate
+the correction factor use MCscale=1.0.  Keep figure 10, which shows that your result has small
+sensitivity to the MCscale factor value.  (I would plot only 0.8 to 1.2, but that's just a preference.)
+Change the text so that the discussion of MC scale factor is a subsection in the systematic 
+uncertainties section.  There explain that you assign a systematic uncertainty to cover the mismodeling
+of the data by simulation that is observable in figure 1 as XX.  Furthermore, you studied the specific
+possibility that the size of the signal was mismodelled, and figure 10 shows that it is smaller 
+than XX.
+
+Alternative option: Leave the text and plots as is regarding the MC scale factor. Remake figure 1 
+with the MCscale factor of 1.2.  (If figure 1 shows better agreement with MCscale=1.2, than that's 
+a good argument for this option.) Evaluate the systematic uncertainty from the observable mismatch 
+in this plot. Discuss the cross check of the signal size in the text.
+
+----------------------------------------------------------------
+
+line 2 - agree with Tom.  Hit reco algorithms are 1D by definition. You can drop the "2D' and just 
+say "hit reconstruction algorithm.  Or, perhaps more accuralely?, say that the BHF is an "algorithm 
+that does both hit reconstruction and crude track reconstruction 
+using collection plane hits and counter information."
+
+MATT --> Done.
+
+line 20 - this is a strange way to define the weights, usually one uses ADC_i as the weight.  State 
+why this method is chosen and/or why it is better.  Add a reference if appropriate.
+
+MATT --> I don't have a reference. I chose it so the weights don't go negative, so the weighted mean tick isn't skewed by large negative ADCs (which are just artifacts of the amplification anyway), but most importantly because the of the fixed asymmetric hit width. Taking the mean weighted by ADC would always bias the peak tick significantly toward the middle tick (+25 since it is between -50 and +100). Of course, my solution still is biased, but much less so. I've tested this scheme with a lot of real data and simulation pulses and it always chooses what I would expect the peak tick to be. I'm very happy with the scheme, just want to make sure that other people can also be happy with it. Anyway, I've added a short explanation.
+
+line 49-51: a single sentence does not constitute a paragraph. 
+
+MATT --> I've moved the whole section around so should make more sense and flow better. Done. 
+
+line 57-60: "an attenuation of 15%"  Attenuation is usually fraction of charge remaining, not fraction
+lost.  5 m is an irrelevant distance for this article.  You have the equation already, no need to 
+put a reference.  You could consider combining this sentence and the equation, then the reference
+could be appropriate.  I think that measuring the electron lifetime is equally important for today's
+TPCs as well as future ones, and would not emphasize DUNE. 
+
+MATT --> See above.
+
+line 81: "over the course of the run" -> "over the course of this dataset"??
+
+MATT --> Done.
+
+line 87: The chi2 value does not necessarily indicate additional uncertainties in the MPV 
+measurements.  A common bias would not inflate your chi2 for example, just give you the wrong lifetime
+and wrong dQ/dx_0 value. If your statistical uncertainties are too small, that would inflate your 
+chi2.  I would end the sentence at 6.0 and not speculate on the reason for the large chi2 (and I mean
+chi2/ndf everywhere.)
+
+MATT --> Done.
+
+line 123-124: replace "half as much noise" with "twice as much signal".
+
+MATT --> Done.
+
+Figure 4 (left):  What does "combined results for all simualted MCscale parameters" mean?  You should 
+be plotting the data that corresponds to the final MCscale factor that you use at the end, and only
+that data.  
+
+MATT --> Fixed the plots and caption.
+
+Figure 4:
+No need to state that the errors are binomial in the caption.  that is the correct way to do it.
+
+MATT --> Done.
+
+Figure 5: 
+I think that these plots are not very useful for all drift distances combined, and would instead 
+make them for one fixed value of the drift distance, or 4 plots for 2 fixed values of the drift.
+  Opinion.
+
+MATT --> I agree. I've changed the plots to show pur and eff for counter trigger 9+31 (parallel to APA, about 44cm drift).
+
+Figure 5: 
+The horizontal error bars are not relevant - you simulated fixed values of the MC scale parameter, so
+there is no uncertainty and the points should be plotted at those values.
+
+MATT --> Done.
+
+lines 155-160 and figure 7: The source of hit inefficiency is not as cut and dry as the text seems.
+All of the hits below threshold are not missing, just the ones that can't be interpolated from 
+neighboring hits because they are at the edge of the APA or next to a region of dead wires.
+line 156 says "as the efficiency drops to 0" but it actually drops to 0.2, and is above 0.4 for any 
+ value of Q_MC relevant to the analysis. 
+The loss of hits below threshold is also not the complete reason for the bias. I would argue that 
+the dominant reason for the bias is that the 
+charge resolution deteriorates quickly with decreasing 
+hit charge and increasing noise" which means that the measured charge distribution is no longer
+a LG distribution.  By fitting to a LG function, we assume that the charge resolution is independent
+of the charge itself.  Because it is not, we introduce a bias because the MP value of the measured
+distribution is no longer the MP value of the Landau.
+I would actually remove figure 7 as it only applies to the BHF, you manage to recover many of the
+lost hits afterward.  If you keep it, discuss it in the context of needing to do the second 
+interpolation step to recover the lost hits.
+
+Your text lines 155-167 implies that if we could just find all the hits, we would be fine. We could 
+use the line connecting the counter centers to find all of the hits and fix it otherwise. 
+ You need to re-write section 2.1.3 - the bias comes from the high noise level, that results
+in both lost hits and poor charge resolution for small hits.  We use the MC to model the noise
+and its impact on hit finding and hit charge measurement so that
+we can correct for the resulting bias.  The uncertainty on the bias correction comes from 
+potential mismodeling of the situation (signal and noise) of the MC.
+
+MATT --> Fair points. I agree 100% since I've fixed the efficiency problems and the bias shift has decreased. I've re-worked the text, hope it conveys the correct message now.
+
+
+Figure 6 is never discussed in the text.  Needs to be.  
+
+MATT --> Done.
+
+Figure 8 - please add the distribution of Q_MC to this plot as well (like figure 6)
+
+MATT --> Done.
+
+lines 193-203: see comments at the beginning.  There is a simple way to verify the signal mismodeling, 
+it needs to be done.
+
+MATT --> Re-worded slightly.
+
+Section 2.3 - my previous comments still apply, understood that you're still working.
+
+MATT --> Still working on it.
+
+
+
+
+
+
+---------------------------------------
+
+
+You need to add to the paper the details of why that efficiency is not 100% (what you just wrote below.)
+You could do that when you explain how the interpolation is done. (Something like “note that this does not guarantee
+that a hit will be found on each wire because . . . “) Or you could add it where you present the efficiency (the efficiency is not
+100% at short drifts because  .  . . ) or maybe both is the most clear.
+
+I’ll put that in my comments on the draft.
+
+MATT --> Done.
+
+Michelle
+
+
+
+> On Jul 7, 2017, at 10:30 AM, Matthew Thiesse <m.thiesse@sheffield.ac.uk> wrote:
+>
+> Hi Michelle,
+>
+> I only force a hit if the location of the hit on the waveform can be interpolated from surrounding found hits. I don't extrapolate. So, the wires near the edges of the APA will have lower efficiencies. Also, for tracks that cross the horizontal gap, there are going to be several wires where I can't assume a hit because I don't know where the track crossed the gap. Hope that makes sense. I presume this is why the efficiency is not 100%.
+>
+> Yes, both the found and assumed (forced) hits are included in the charge distributions.
+>
+> Matt
+
+
+OTHER COMMENTS
+
+Mark - "Exponential fit to MPVs. There needs to be a description of how the fit was done. How were the errors determined? What is the chi-squared/DOF at the minimum?"
+
+Matt - I've added some statements about how the fits were done -- i.e. Minuit via ROOT. The errors are determined from Minuit. The chi2/ndf is 6.0, so there's a problem. The problem makes the statistical uncertainty on the lifetime parameter underestimated as well, but I don't know how to fix this. Probably by adding in systematic uncertainties to the error bars before the exponential fit will make it more sensible??? 
+
+Mark - What errors do you use in the chi-squared fit? Is it the fit error on the MPV for each bin? That should be included in the text.
+
+MATT --> Done.
+
+Mark - By eye, the fit in Figure 3 does not look too bad. Most of the points are within one error of the line. So, I’m surprised that the chi-sqared/DOF is as high as six. Also, it kind of looks like spacing between the points is uneven. I’m not sure how that could be. 
+
+MATT --> Log scale?
+
+--------------------------------
+
+Tom - 
+
+ On this point, in the data you only have Q_{reco} and you cannot cut on Q_{MC}.  The question then becomes
+what are those hits with negative charges doing in the analysis?  I believe you had explained that they do not
+contribute to the analysis.  Do they now not contribute to the hit-finding efficiency shown in Fig. 4?  Or 6?
+
+MATT --> Should they really not be included in the efficiency plots? If the true charge is within the correct Landau range (i.e. positive charge), but the reconstruction gets it soooo wrong that it goes negative, due to noise, then that hit would still contribute to the charge resolution right? In this case, since the charge resolution is soooooo poor, it affects the efficiency. I guess what I'm saying is that I'm hesitating to remove these hits from the efficiency plots, but I'm not sure why.
+
+Some specific comments on the version e-mailed on July 4, indexed by line number:
+
+2:  It's a 2D hit reco algorithm?  It's really a 1D algorithm because it uses data on
+just one wire at a time.  Maybe just say "The electron lifetime analysis uses the BHF
+hit finding algorithm."  But move that sentence after the earlier steps of fixing the data.
+
+MATT --> Done.
+
+5 and 20:  You re-use the symbol A for the path and the ADC value.  Please use different
+symbols.
+
+MATT --> Done.
+
+20:  use subscripts instead of brackets:  A_i instead of A[i], and w_i instead of w[i]
+
+MATT --> Done.
+
+13:  relation to the first tick at which ...
+
+MATT --> Done.
+
+57: the example of a 5 meter drift, E=500 V/cm and 20 ms lifetime is triply unrealistic.  We don't
+need it since eq. 1 contains all the necessary information, so just take the whole example off.  You could
+mention what the maximum drift time is (at 250 VM/cm).
+
+MATT --> Fair point, I've kept it but used 35-ton values instead. That okay?
+
+66:  do we have a different symbol for the wire spacing than p?  Maybe d?  p means momentum;
+even if you explain it, it is disconcerting.
+
+MATT --> Done.
+
+73: remove "(using the FFT)"
+
+MATT --> Done.
+
+74:  Suggest rephrasing: "The range for these fits is truncated
+to exclude contributions from delta rays, which improves the
+resolution on the MPV of the fit."
+
+MATT --> Done.
+
+77:  I'd not call the exponential constant the "lifetime" yet because
+you haven't corrected out the biases.  Maybe just call it $\tau_{\rm{fit}}$ or something.
+"uncorrected" or "raw" are other options.  Certainly not
+$\tau_{\rm{lifetime}}$ as in Fig. 3's legend.  Fig. 3 legend:
+the dQ/dx0 line is ugly and unnecessary.
+
+MATT --> Fixed the subscript on tau. I put the dqdx0 line in there to reference back to when discussing about the MCscale shifts and the differences between data dqdx0 and simulation dqdx0. But I can remove it if thats better.
+
+82:  , but are measured by the PrMs.  They vary by ...
+
+MATT --> Done.
+
+86:  again, I wouldn't call this the lifetime yet.
+
+MATT --> Done.
+
+116: untriggered
+
+MATT --> Done.
+
+128: don't begin a sentence with a number
+
+MATT --> Done.
+
+Fig 4 vertical axis labels -- don't need both "Efficiency and $\epsilon_s$, as that is a definition of the symbol,
+which should be done in the text.  Use either the symbol or the word but not both.
+
+MATT --> Done.
+
+Fig 4 caption -- of hit finding in the simulation as functions 
+
+MATT --> Done.
+
+What's MCscale here?
+
+MATT --> Done.
+
+You might want a single variable like $\mu$ instead of MCscale.  In general, variables should not
+be multi-character names as there can be a confusion between multiplication and the name of something.
+
+MATT --> Done.
+
+196:  Putting a _0 on dQ/dx looks ambiguous -- like x_0 is a variable and not a _0 on everything.
+
+MATT --> Done.
+
+204: Correcting for Lifetime Bias   (instead of "Debiasing" which isn't a word).
+
+MATT --> It has a Wikipedia page, so it must be a word right? Anyway, I've changed it.
+
+215:  $\tau_{corr}$ instead of $\tau_{\true}$.  Use the notation "corrected"
+instead of true in line 214.  But you determine the coefficients by getting the corrected values as close
+as possible to the true values in the MC?  Might be worth a sentence or two about how the a's are determined.
+
+MATT --> I've re-worked the paragraph a bit. HOpefully it's a bit better now.
+
+I'd not use the word "dataset" to refer to Monte Carlo samples (especially since you use that to refer to
+the data in the beginning).  MC Samples.  Search for all uses of the word "dataset" and use "sample" or
+"simulated sample" when referring to the MC.
+
+MATT --> Done.
+
+Sec. 2.1.4 -- The fact that there is bias at long drift times is not in itself a reason to cut them out -- the
+problem is systematic uncertainty in the bias correction.  The reason to cut data out of an analysis is
+because including it is somehow worse than discarding it -- the information it provides has more systematic
+uncertainty than the gain in statistical power or cross-check is worth, so we ignore it.  Is this in fact the case?
+The correction method should correct out the biases, but it's the systematic uncertainty on what's left.
+
+MATT --> Right. I've edited the paragraph and I hope I've made it more clear what the effect actually \emph{is}.
+
+Do we really need fig. 7?  Is it hypothetical?  Or merely a cartoon?
+
+MATT --> Nope. Removed. It's just a neat visualisation of what I imagined the bias problem to be.
+
+I'd show Fig. 9 with the axes exchanged.  You have control over MCscale -- it's
+the independent variable, and the intercept of the fit is the dependent variable.
+
+MATT --> Done.
+

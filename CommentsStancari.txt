@@ -1,0 +1,83 @@
+------------------------------------------------
+
+"Following this, unipolar pulses are found when the amplitude
+of the filtered waveform raises above twice the measured noise RMS value."
+
+How is the noise RMS value measured?  Once per run (pedestal) or once per event?
+Does the (Or can the) signal contribute in any way to the RMS value?
+
+"The start and end
+points of the pulse are xed at -50 and +100 ticks, respectively, in relation to the tick at which
+the pulse is triggered."
+
+Different track angles (or different delta-counter tracks) will have different pulse widths in theory,
+yet you use the same width for all track angles.  It might be worth a sentence here to remind your reader
+that the difference in pulse width for EW tracks that do not cross the wire planes is small, or that the 
+largest pulse with for the EW tracks that do not cross the wire planes is smaller than this window?
+
+"The THB algorithm was developed to purify the hits collection output of the BHF."
+
+Was THB defined somewhere before this?  The sentence as written implies that it was already defined.
+
+"The track angles with respect to the anode plane
+are also estimated by using the 3D line which connects the triggered muon counters."
+
+Change to "which connects the centers of the triggered muon counters."
+
+"For example, a reduction of 20% in charge collected, versus total charge liberated in an
+interaction, for a drift of 2 m and electric eld of 500 V/cm is expected for an electron lifetime of
+20 ms [8]."
+
+I get 94% not 80% of the total collectable charge arrives at the wire planes, for a 20 ms lifetime, 
+a 2 m drift, and a drift velocity of 1.6 m/ms, using equation 1. Please check.
+
+Looking at figure 2, using data from the 2 thin pink bands seems absurd - there is no reason for the reader to 
+consider the possibility that the data available for each one is not proportional to the width (the 
+elapsed time).  Please add a sentence that explains what fraction of the tracks in your final sample comes 
+from each band (and thus why it's worth combining data from different time periods and running conditions.)
+
+"For this data set, the decay of hit dQ=dx in the TPC is shown in gure 3, yielding an
+observed electron lifetime of 4.53  0.10 (stat.) ms (systematic uncertainties and corrections to
+this measurement are made in section 2.2). Here, a fiducial cut of 50% of the full drift time is
+imposed to reduce bias due to incorrectly determined MPV for longer drift hits (explanation in
+section 2.1.4). Possible causes of bias in this measurement and explanation of the systematic
+uncertainties are described below."
+
+Figure 3 - did you include the first point (smallest drift time) in your fit?  If yes, why does the fit not 
+extend that far in the plot?  If no, then make your sentence about the 50% fiducial volume cut accurate.
+Maybe 5-50% or 0.05m to 1.00m in drift distance?  And of course explain why you discarded that point.
+
+Figure 5 - I assume that these are for a specific drift distance?  State which one in the text and 
+put it on the plot as well. 
+
+Figure 6 - what is the kink in the red curve?  You have to comment on that in the text.
+
+Figure 7 - love it.
+
+Figure 8 - Can you add a second figure that shows the distribution of Q_MC for the sample?  The existing 
+figure is missing this important information if one wants to understand what kind of hit charge resolution
+we have for the purity analysis.
+
+Figure 8 - The scatter in the points at 
+large Q_MC does not agree with the size of the error bars, leading me to conclude that the error bars
+are too small.  We can discuss if needed. 
+
+Figure 10 - Interesting, this is new.  What you may not know is that transverse diffusion causes us to 
+get dQ/dx0 wrong (at least in simulation) even with no noise.  So the discussion in 2.1.5 is not perfect,
+because you attribute the entire discrepancy to the MCscale factor.  We should talk about this more. 
+
+QUESTION:  Why did the true lifetime change from what it was before (3.5 ms?) to 4.25 ms.  What specific 
+thing made the difference?
+
+STATEMENT: We are in a much different situation now that the correction is small, the other systematic
+considerations are no longer negligible.
+
+I think that you need to do a space charge correction now as well, and a second systematic uncertainty.
+In other words, quote tau = 4.13+/-0.24(stat)+/0.28(syst)+/-0.12(syst)
+
+We also need to check the size of the transverse diffusion correction, it may need to be called out 
+separately. 
+
+
+
+ 

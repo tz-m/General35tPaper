@@ -1,0 +1,196 @@
+Section 1 - Is the intent to have a separate section for your hit and track finding or to keep them integrated with the others as in the current paper draft? My preference would be to keep them integrated.
+
+---MATT---> Integrated, I agree. Sorry, I just didn't feel the need to copy the other bits to my document while I was editing it.
+
+====================================================================
+
+Line 1 - If this is meant to be standalone - BNF and THB need to be defined.
+
+---MATT---> See above. They are defined in the paragraph before my bit begins.
+
+====================================================================
+
+Line 8 - Is the hit threshold really only 2xRMS? This would give you a huge number of noise hits.
+
+---MATT---> I made a quick BOtE calculation to see what happens (Tom commented on this too). Basically, the main components of noise aren't at the Nyquist frequency, so we can scale 'huge' down based on the actual noise components. Here's how I think about it:
+
+Assume the "strongest" noise frequency is 700kHz. That is, in the absence of signal, the waveform oscillates at 700kHz. If this oscillation amplitude varies randomly (i.e. gaussian), then there should be about 131 fake pulses created per 15000 tick waveform:
+
+(700000 noise cycles / second)*(0.5 us / sample)*(15000 samples / waveform)*(0.025 integral of normal distribution from +2sigma to +inf) = 131 noise cycles per waveform
+
+One counter shadow's width of drift time is roughly 1000 ticks (50cm / (0.1 cm/us) / (0.5 us/tick)), or 1/15 of a waveform. 
+
+So like 9 fake noise hits in each counter-shadowed waveform, which is more than I actually see (my reconstruction actually sees about 1-2 per counter-shadowed waveform). Scale this down again by the fact that these high frequency noise components are also subject to lower frequency components and they might be consistent.
+
+Because the fake hits are not correlated in time across wires, they are not well modelled by a polynomial in wire-time space, so are disfavoured in the MLESAC process. MLESAC actually works surprisingly well in the presence of a lot of outliers.
+
+====================================================================
+
+Line 11 - It would be useful to define "hit" here. Is there just one per channel?
+
+---MATT---> Done. Then edited the section a bit to make it flow better.
+
+====================================================================
+
+Line 16 - The "second path" comes in a long time after it's first mentioned. There should be some introduction to it earlier on.
+
+---MATT---> Reworded it slightly to give identifying names to the paths ("A" and "B") to make them more identifyable/memorable.
+
+====================================================================
+
+Line 22 - I think THB also adds "assumed hits", so you might want to add that to the first line
+
+---MATT---> Good point. Done.
+
+====================================================================
+
+Line 26 - the "outside of the counter shadow" phrase seems superfluous
+
+---MATT---> I wanted to make a connection to the counter shadow method of track finding, described elsewhere. It's the same idea, but done a bit differently. Still, I think you're right so I removed it.
+
+====================================================================
+
+Line 26 - "which" -> "that"
+
+---MATT---> Done.
+
+====================================================================
+
+Line 49 - Please check the 20% number. If I do a rough calculation, I get a loss of about 6% for these parameters
+
+---MATT---> Sorry about that. I went back and forth with some numbers and it just got a little mixed up. It should've said 5m drift, which I've calculated an attenuation of 15%. Anyway, I've fixed it now.
+
+====================================================================
+
+Line 54 - This definition should go before electron lifetime is first used
+
+---MATT---> Fair point. I've moved the paragraph up to the beginning of the section.
+
+====================================================================
+
+Line 61 - "decay of the MPV". I would say "decrease in the MPV" 
+
+---MATT---> Done.
+
+====================================================================
+
+Line 65 - "aggregations"->"set"
+
+---MATT---> Don't know why I thought "aggregations" was a better word :) Changed.
+
+====================================================================
+
+Line 81 - "decay of hit"-> "decrease of MPV dQ/dx as a function of drift time" 
+
+---MATT---> Done.
+
+====================================================================
+
+Line 82 - There needs to be a description of how the fit was done. How were the errors determined? What is the chi-squared/DOF at the minimum?
+
+---MATT---> I've added some statments about how the fits were done -- i.e. Minuit via ROOT. The errors are determined from Minuit. The chi2/ndf is 6.3, so there's a problem.
+
+The problem makes the statistical uncertainty on the lifetime parameter wrong as well, but I don't know how to fix this. Probably by adding in systematic uncertainties to the error bars before the exponential fit will make it more sensible???
+
+I think it would be good to discuss how to proceed here.
+
+====================================================================
+
+Line 100 - "occurs"->"proceeds"
+
+---MATT---> Done.
+
+====================================================================
+
+Line 110 - "missing or dead channels in the data sample are not propagated" -> "data on channels that are missing or dead in the real data is discarded"
+
+---MATT---> Done.
+
+====================================================================
+
+Line 128 - Define how the matching is done
+
+---MATT---> Done.
+
+====================================================================
+
+Figure 4 - Why do the errors get so much larger at high drift distance. Are these binomial errors?
+
+---MATT---> It is binomial errors, with a Bayesian twist. See 
+http://home.fnal.gov/~paterno/images/effic.pdf
+
+My take is that there are fewer reconstructed hits at longer drift distances because they are attenuated away.
+
+I added a comment to the figure captions.
+
+====================================================================
+
+Line 137 - "Because of impurities.." -> At large drift length, the collected charge is absorbed by impurities that many the signal is often below threshold …"
+
+---MATT---> Fixed.
+
+====================================================================
+
+Line 153 - "the distribution impresses upon the threshold" -> " a large fraction of the distribution goes below threshold" 
+
+---MATT---> Done.
+
+====================================================================
+
+Line 153 - "stagnate" -> "level off" 
+
+---MATT---> Done.
+
+====================================================================
+
+Line 186 - Put in the value of dQ/dX0 for data (2423) and compare to the number for MCscale=1. 
+
+---MATT---> Done.
+
+====================================================================
+
+Line 206 - Where does the 0.24 error come from?
+
+---MATT---> It's the confidence interval on the prediction given the regression model. I've added some more details.
+
+====================================================================
+
+Line 208 - "observed" and "inferred" aren't well defined. I would just say it's the magnitude of the debiasing shift calculated in the previous section.
+
+---MATT---> Done.
+
+====================================================================
+
+Line 214 - What other differences? What is meant by "second order"?
+
+---MATT---> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+====================================================================
+
+Line 217 - "somewhat"->"marginally"
+
+---MATT---> Done.
+
+====================================================================
+
+Last paragraph - "by equating two exponential decay functions". I don't understand what's meant here.
+
+---MATT---> I've changed the phrasing to something I think makes more sense.
+
+What I mean to say in fewer words is this:
+
+f(t) = A*e^(-t/tau)
+g(t) = A*e^(-t/tau')
+
+They are equal valued at t=0: 
+	f(0)=A and g(0)=A ---> Check
+The values at t=T differ by 4.2%: 
+	f(T)=Ae^(-T/tau) 
+	g(T)=Ae^(-T/tau') + 0.042*Ae^(-T/tau')
+		Then setting them equal:
+	e^(-T/tau) = 1.042*e^(-T/tau')
+		Finally solve for tau':
+	tau'= (T*tau)/(T+tau*log(1.042))
+
+
+====================================================================
